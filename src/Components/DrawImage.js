@@ -1,28 +1,27 @@
 import {gameLoop} from './GameLoop';
+import {variables} from './Variables';
 
-function loadImage() {
+function loadImage(gameLoop) {
+  // console.log("loadImage() loaded")
     let img = new Image();
-    img.src = './img/player.png';
+    img.src = '../../../Images/player.png';
     img.onload = function() {
-      window.requestAnimationFrame(gameLoop);
+      window.requestAnimationFrame(gameLoop(variables));
+      console.log("requestAnimationFrame(gameloop() loaded)")
     };
-    return img;
+  
   }
   
-function drawFrame(frameX, frameY, canvasX, canvasY) {
-let canvas = document.querySelector('canvas');
-let ctx = canvas.getContext('2d');
-
-const SCALE = 1;
-const WIDTH = 32;
-const HEIGHT = 32;
-const SCALED_WIDTH = SCALE * WIDTH;
-const SCALED_HEIGHT = SCALE * HEIGHT;
-
-let img = loadImage();
-ctx.drawImage(img,
-                frameX * WIDTH, frameY * HEIGHT, WIDTH, HEIGHT,
-                canvasX, canvasY, SCALED_WIDTH, SCALED_HEIGHT);
+function drawFrame(frameX, frameY, canvasX, canvasY, gameLoop) {
+//let canvas = document.querySelector('canvas');
+//let ctx = canvas.getContext('2d');
+console.log("drawFrame() loaded")
+let img = loadImage(gameLoop, variables);
+return (
+  variables.ctx.drawImage(img,
+                frameX * variables.WIDTH, frameY * variables.HEIGHT, variables.WIDTH, variables.HEIGHT,
+                canvasX, canvasY, variables.SCALED_WIDTH, variables.SCALED_HEIGHT)
+);
 }
 
   export {loadImage, drawFrame};

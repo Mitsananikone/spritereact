@@ -1,43 +1,48 @@
+import {loadImage, drawFrame} from './DrawImage';
+import {moveCharacter} from './MoveCharacter';
+import {variables} from './Variables';
 
+function gameLoop(variables) {
 
-function gameLoop() {
+  console.log("gameLoop.js loaded")
 
-
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+  variables.ctx.clearRect(0, 0, variables.canvas.width, variables.canvas.height);
   
     let hasMoved = false;
   
-    if (keyPresses.w) {
-      moveCharacter(0, -MOVEMENT_SPEED, FACING_UP);
+    if (variables.keyPresses.w) {
+      moveCharacter(0, -variables.MOVEMENT_SPEED, variables.FACING_UP);
       hasMoved = true;
-    } else if (keyPresses.s) {
-      moveCharacter(0, MOVEMENT_SPEED, FACING_DOWN);
+    } else if (variables.keyPresses.s) {
+      moveCharacter(0, variables.MOVEMENT_SPEED, variables.FACING_DOWN);
       hasMoved = true;
     }
   
-    if (keyPresses.a) {
-      moveCharacter(-MOVEMENT_SPEED, 0, FACING_LEFT);
+    if (variables.keyPresses.a) {
+      moveCharacter(-variables.MOVEMENT_SPEED, 0, variables.FACING_LEFT);
       hasMoved = true;
-    } else if (keyPresses.d) {
-      moveCharacter(MOVEMENT_SPEED, 0, FACING_RIGHT);
+    } else if (variables.keyPresses.d) {
+      moveCharacter(variables.MOVEMENT_SPEED, 0, variables.FACING_RIGHT);
       hasMoved = true;
     }
   
     if (hasMoved) {
-      frameCount++;
-      if (frameCount >= FRAME_LIMIT) {
-        frameCount = 0;
-        currentLoopIndex++;
-        if (currentLoopIndex >= CYCLE_LOOP.length) {
-          currentLoopIndex = 0;
+      variables.frameCount++;
+      if (variables.frameCount >= variables.FRAME_LIMIT) {
+        variables.frameCount = 0;
+        variables.currentLoopIndex++;
+        if (variables.currentLoopIndex >= variables.CYCLE_LOOP.length) {
+          variables.currentLoopIndex = 0;
         }
       }
     }
   
     if (!hasMoved) {
-      currentLoopIndex = 0;
+      variables.currentLoopIndex = 0;
     }
   
-    drawFrame(CYCLE_LOOP[currentLoopIndex], currentDirection, positionX, positionY);
+    drawFrame(variables.CYCLE_LOOP[variables.currentLoopIndex], variables.currentDirection, variables.positionX, variables.positionY);
     window.requestAnimationFrame(gameLoop);
   }
+
+  export {gameLoop};

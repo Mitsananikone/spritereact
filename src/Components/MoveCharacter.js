@@ -1,12 +1,15 @@
+import {variables} from './Variables';
+import {App} from '../App';
 
 function moveCharacter(deltaX, deltaY, direction) {
-    if (positionX + deltaX > 0 && positionX + SCALED_WIDTH + deltaX < canvas.width) {
-      positionX += deltaX;
+  console.log("moveCharacter.js loaded")
+    if (variables.positionX + deltaX > 0 && variables.positionX + variables.SCALED_WIDTH + deltaX < variables.canvas.width) {
+      variables.positionX += deltaX;
     }
-    if (positionY + deltaY > 0 && positionY + SCALED_HEIGHT + deltaY < canvas.height) {
-      positionY += deltaY;
+    if (variables.positionY + deltaY > 0 && variables.positionY + variables.SCALED_HEIGHT + deltaY < variables.canvas.height) {
+      variables.positionY += deltaY;
     }
-    currentDirection = direction;
+    variables.currentDirection = direction;
   }
 
   export {moveCharacter};
