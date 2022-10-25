@@ -1,48 +1,48 @@
 import {loadImage, drawFrame} from './DrawImage';
 import {moveCharacter} from './MoveCharacter';
-import {variables} from './Variables';
+import {Player} from './Player';
+import {useState} from 'react';
+import {DrawCanvas} from './Canvas';
 
-function gameLoop(variables) {
+function GameLoop() {
 
   console.log("gameLoop.js loaded")
 
-  variables.ctx.clearRect(0, 0, variables.canvas.width, variables.canvas.height);
+  const [hasMoved, setHaveMoved] = useState(0);
   
-    let hasMoved = false;
-  
-    if (variables.keyPresses.w) {
-      moveCharacter(0, -variables.MOVEMENT_SPEED, variables.FACING_UP);
-      hasMoved = true;
-    } else if (variables.keyPresses.s) {
-      moveCharacter(0, variables.MOVEMENT_SPEED, variables.FACING_DOWN);
-      hasMoved = true;
+    if (Player.keyPresses.w) {
+      moveCharacter(0, -Player.movement_speed, Player.facing_up);
+      setHaveMoved(true);
+    } else if (Player.keyPresses.s) {
+      moveCharacter(0, Player.movement_speed, Player.facing_down);
+      setHaveMoved(true);
     }
   
-    if (variables.keyPresses.a) {
-      moveCharacter(-variables.MOVEMENT_SPEED, 0, variables.FACING_LEFT);
-      hasMoved = true;
-    } else if (variables.keyPresses.d) {
-      moveCharacter(variables.MOVEMENT_SPEED, 0, variables.FACING_RIGHT);
-      hasMoved = true;
+    if (Player.keyPresses.a) {
+      moveCharacter(-Player.movement_speed, 0, Player.facing_left);
+      setHaveMoved(true);
+    } else if (Player.keyPresses.d) {
+      moveCharacter(Player.movement_speed, 0, Player.facing_right);
+      setHaveMoved(true);
     }
   
     if (hasMoved) {
-      variables.frameCount++;
-      if (variables.frameCount >= variables.FRAME_LIMIT) {
-        variables.frameCount = 0;
-        variables.currentLoopIndex++;
-        if (variables.currentLoopIndex >= variables.CYCLE_LOOP.length) {
-          variables.currentLoopIndex = 0;
+      Player.frameCount++;
+      if (Player.frameCount >= Player.frame_limit) {
+        Player.frameCount = 0;
+        Player.currentLoopIndex++;
+        if (Player.currentLoopIndex >= Player.cycle_loop.length) {
+          Player.currentLoopIndex = 0;
         }
       }
     }
   
     if (!hasMoved) {
-      variables.currentLoopIndex = 0;
+      Player.currentLoopIndex = 0;
     }
   
-    drawFrame(variables.CYCLE_LOOP[variables.currentLoopIndex], variables.currentDirection, variables.positionX, variables.positionY);
-    window.requestAnimationFrame(gameLoop);
+    drawFrame(Player.cycle_loop[Player.currentLoopIndex], Player.currentDirection, Player.positionX, Player.positionY);
+    window.requestAnimationFrame(GameLoop);
   }
 
-  export {gameLoop};
+  export {GameLoop};
