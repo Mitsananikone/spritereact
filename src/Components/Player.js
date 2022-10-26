@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import React from 'react';
 import  {loadImage, drawFrame} from './DrawImage';
-import {canvas, ctx} from './Canvas.js';
+import {Canvas} from './Canvas.js';
 
 class Player extends React.Component {
     constructor(props) {
@@ -37,10 +37,10 @@ class Player extends React.Component {
 
 function moveCharacter(deltaX, deltaY, direction) {
   console.log("moveCharacter.js loaded")
-    if (Player.positionX + deltaX > 0 && Player.positionX + Player.scaled_width + deltaX < canvas.width) {
+    if (Player.positionX + deltaX > 0 && Player.positionX + Player.scaled_width + deltaX < Canvas.width) {
         Player.positionX += deltaX;
     }
-    if (Player.positionY + deltaY > 0 && Player.positionY + Player.scaled_height + deltaY < canvas.height) {
+    if (Player.positionY + deltaY > 0 && Player.positionY + Player.scaled_height + deltaY < Canvas.height) {
         Player.positionY += deltaY;
     }
     Player.currentDirection = direction;

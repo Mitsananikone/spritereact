@@ -1,4 +1,4 @@
-import {loadImage, drawFrame} from './DrawImage';
+import {loadImage, DrawFrame} from './DrawImage';
 import {moveCharacter} from './MoveCharacter';
 import {Player} from './Player';
 import {useState} from 'react';
@@ -7,21 +7,21 @@ import {DrawCanvas} from './Canvas';
 function GameLoop() {
 
   console.log("gameLoop.js loaded")
-
+  let keyPresses = {};
   const [hasMoved, setHaveMoved] = useState(0);
   
-    if (Player.keyPresses.w) {
+    if (keyPresses.w) {
       moveCharacter(0, -Player.movement_speed, Player.facing_up);
       setHaveMoved(true);
-    } else if (Player.keyPresses.s) {
+    } else if (keyPresses.s) {
       moveCharacter(0, Player.movement_speed, Player.facing_down);
       setHaveMoved(true);
     }
   
-    if (Player.keyPresses.a) {
+    if (keyPresses.a) {
       moveCharacter(-Player.movement_speed, 0, Player.facing_left);
       setHaveMoved(true);
-    } else if (Player.keyPresses.d) {
+    } else if (keyPresses.d) {
       moveCharacter(Player.movement_speed, 0, Player.facing_right);
       setHaveMoved(true);
     }
@@ -41,7 +41,7 @@ function GameLoop() {
       Player.currentLoopIndex = 0;
     }
   
-    drawFrame(Player.cycle_loop[Player.currentLoopIndex], Player.currentDirection, Player.positionX, Player.positionY);
+    DrawFrame(Player.cycle_loop[Player.currentLoopIndex], Player.currentDirection, Player.positionX, Player.positionY);
     window.requestAnimationFrame(GameLoop);
   }
 
